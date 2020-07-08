@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# only run hook on the master branch
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ ! "$branch" = "master" ]; then
+    exit 0
+fi
+
 # From default pre-commit.sample: warn about whitespace issues
 if git rev-parse --verify HEAD >/dev/null 2>&1; then
 	against=HEAD
